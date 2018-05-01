@@ -2,10 +2,10 @@
 IFS=$'\n'
 
 # Create directory tree first using parallel utility to run multiple processes
-parallel --will-cite -j 20 /usr/bin/rsync -dirs --existing --ignore-existing --delete -e ssh /nas/ root@remotesys:/mnt/nas/ > /admin/working/rsync.log 2>&1
+parallel --will-cite -j 20 /usr/bin/rsync -dirs --existing --ignore-existing --delete -e ssh /nas/ root@remotesys:/mnt/nas/ > /admin/working/rsync.log
 
 # Replicate files from working list "/admin/working/list.migrated"
-awk '{print substr($0, index($0,$5)) }' </admin/working/list.migrated |  parallel --will-cite -j 20 /usr/bin/rsync --relative -av -e ssh {} root@remotesys:/mnt/ >> /admin/working/rsync.log 2>&1
+awk '{print substr($0, index($0,$5)) }' </admin/working/list.migrated |  parallel --will-cite -j 20 /usr/bin/rsync --relative -av -e ssh {} root@remotesys:/mnt/ >> /admin/working/rsync.log
 
 rc=$?
 
