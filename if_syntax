@@ -1,0 +1,16 @@
+#!/bin/sh
+
+#Create Database
+
+if [[ "$1" = "" ]]
+then
+echo "Database required"
+else
+
+mysql -u root -pPassword <<EOF
+create database $1;
+GRANT ALL ON $1.* TO user@localhost;
+FLUSH PRIVILEGES;
+EOF
+exit
+fi
